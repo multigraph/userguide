@@ -51,6 +51,11 @@ values per line, and values on each line separated from each other by commas.
 </para>
 
 <para>
+Note: as of Multigraph version 2.2-32, the XML formatting of the response is optional.
+The response may consist simply of the comma separated list of values, with no XML tags.
+</para>
+
+<para>
 The range of data that should be returned in the response is determined
 by the Xmin,Xmax and Bmin,Bmax values given in the request URL.  Xmin
 and Xmax determine an interval along the first variable dimension, and
