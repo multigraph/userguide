@@ -168,6 +168,35 @@ Offset from the right side. Default: 30.
 </variablelist>
 
 <para>
+The <sgmltag>plotarea</sgmltag> element also accepts the following attributes which
+control an optional border to be drawn around it:
+</para>
+
+<variablelist>
+
+<varlistentry><term><sgmltag>border</sgmltag></term>
+<listitem>
+<para>
+The width, in pixels, of a border to be drawn around the plotarea.  The default is 0,
+which means that no border is drawn.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>bordercolor</sgmltag></term>
+<listitem>
+<para>
+The color to use for the plotarea border. 
+The default
+is "0xeeeeee", which is very light gray, and matches the default value for
+axis grid lines.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>
 There can be at most one <sgmltag>plotarea</sgmltag> element in a &mugl; file.  If it
 is absent, all attributes assume their default values.
 </para>

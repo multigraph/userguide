@@ -454,19 +454,41 @@ for the containing <sgmltag>labels</sgmltag> element.
 	  </para>
 	</listitem>
 	</varlistentry>
-	<varlistentry><term><sgmltag>in</sgmltag></term>
+	<varlistentry><term><sgmltag>min</sgmltag></term>
 	<listitem>
 	  <para>
-	  The maximum factor by which zooming "in" is allowed, compared to the initial
-range of the axis before the user has done any zooming.  Should be a number, or the keyword "none".  Default: "none".
+This attribute controls how far "in" the user can zoom on this axis;
+its value is a distance along the axis, and is the smallest
+interval that the user will be allowed to zoom in to.  For a number
+type axis, this value is just a number, and multigraph will constrain
+the zooming so that the range of values displayed along the axis is at
+least that number.  For a datetime type axis, the value should be an
+interval of time consisting of a number followed by one of the letters
+'Y', 'M', 'D', 'H', 'm', or 's', which indicate years, months, days,
+hours, minutes, or seconds, respectively.  For example a value of "6M"
+will cause multigraph to constrain zooming along the axis so that the
+range of time displayed along the axis is always at least 6 months.
+If this attribute is missing, the default behavior is for
+unconstrained inward zooming.
 	  </para>
 	</listitem>
 	</varlistentry>
-	<varlistentry><term><sgmltag>out</sgmltag></term>
+	<varlistentry><term><sgmltag>max</sgmltag></term>
 	<listitem>
 	  <para>
-	  The maximum factor by which zooming "out" is allowed, compared to the initial
-range of the axis before the user has done any zooming.  Should be a number, or the keyword "none".  Default: "none".
+This attribute controls how far "out" the user can zoom on this axis;
+its value is a distance along the axis, and is the greatest
+interval that the user will be allowed to zoom out to.  For a number
+type axis, this value is just a number, and multigraph will constrain
+the zooming so that the range of values displayed along the axis is at
+most that number.  For a datetime type axis, the value should be an
+interval of time consisting of a number followed by one of the letters
+'Y', 'M', 'D', 'H', 'm', or 's', which indicate years, months, days,
+hours, minutes, or seconds, respectively.  For example a value of "10Y"
+will cause multigraph to constrain zooming along the axis so that the
+range of time displayed along the axis is always at most 10 years.
+If this attribute is missing, the default behavior is for
+unconstrained outward zooming.
 	  </para>
 	</listitem>
 	</varlistentry>
