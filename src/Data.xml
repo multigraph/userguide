@@ -59,7 +59,7 @@ The default is "x" for the first variable, "y" for the second variable, and
   <listitem>
   <para>
 A number indicating which "column" the variable is in.
-The default is 0 for the variable, 1 for the second, and so on.
+The default is 0 for the first variable, 1 for the second, and so on.
   </para>
   </listitem>
   </varlistentry>
@@ -77,7 +77,7 @@ default is 'number'.
 
 
 <para>
-After the <sgmltag>values</sgmltag> subelement in the
+After the <sgmltag>variables</sgmltag> subelement in the
 <sgmltag>data</sgmltag> section, exactly one of the following three subelements should
 occur:
 </para>
@@ -127,6 +127,64 @@ the REST service URL should not include the "http://" prefix or the server name.
 
 </variablelist>
 
+<section id="MissingData">
+<title>Missing Data</title>
 
+<para>
+Sometimes there is a need to treat certain data values as "missing",
+which will affect the way that Multigraph plots those values.  For example,
+when drawing a plot that involes lines connecting consecutive data points,
+Multigraph will leave a gap at locations corresponding to missing data points.
+</para>
+
+<para>
+Information about missing data values may be specified in the
+<sgmltag>variables</sgmltag> subsection of the <sgmltag>data</sgmltag> element.
+The
+<sgmltag>variables</sgmltag> tag takes an optional pair of attributes:
+<sgmltag>missingvalue</sgmltag>, which indicates a value to considered
+as missing, and <sgmltag>missingop</sgmltag>, which indicates a test
+to be used to determine whether a given value is missing.  The
+<sgmltag>missingop</sgmltag> attribute should be one of the strings
+"lt", "le", "eq", "ge", or "gt", which stand for "less than", "less
+than or equal", "equal", "greater than or equal", and "greater than",
+respectively. The value of <sgmltag>missingop</sgmltag> determines
+the operation to be used in determining whether a data value should
+be considered missing: the data value is compared, using the
+<sgmltag>missingop</sgmltag> operation, to the
+<sgmltag>missingvalue</sgmltag> value.  For example, if 
+<sgmltag>missingop</sgmltag> is "le" and 
+<sgmltag>missingvalue</sgmltag> is "-9000", then any data values
+less than or equal to -9000 will be considered missing.
+</para>
+
+<para>
+The default for <sgmltag>missingop</sgmltag> is "eq", so the default
+test is for exact equality.
+</para>
+
+<para>
+There is no default for <sgmltag>missingvalue</sgmltag>; if it is not
+specified, then no data values will be considered missing.
+</para>
+
+<para>
+The <sgmltag>variable</sgmltag>  tag also accepts the
+<sgmltag>missingop</sgmltag> and <sgmltag>missingvalue</sgmltag>
+attributes, in which case they apply only to
+an individual variable.  Values for <sgmltag>missingop</sgmltag> and
+<sgmltag>missingvalue</sgmltag> given for an individual <sgmltag>variable</sgmltag>
+element override any that are specified for the enclosing
+<sgmltag>variables</sgmltag> element.  So you can specify
+<sgmltag>missingop</sgmltag> and <sgmltag>missingvalue</sgmltag>
+either for each <sgmltag>variable</sgmltag> individually,
+or globally at the <sgmltag>variables</sgmltag> level, in which case
+any individual <sgmltag>variable</sgmltag> tags that do not
+have their own <sgmltag>missingop</sgmltag> and <sgmltag>missingvalue</sgmltag>
+settings will inherit the values from the inclosing
+<sgmltag>variables</sgmltag> settings.
+</para>
+
+</section>
 
 </section>
