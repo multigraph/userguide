@@ -2,26 +2,29 @@
 <title>Positioning</title>
 
 <para>
-Many visual components of a graph are positioned relative to something
+Many visual components in Multigraph are positioned relative to something
 else in the graph.  For example, a graph title or legend is typically
 positioned (centered, left justified, right justified, etc) relative
 to the entire graph window.  A title for an axis is usually positioned
 relative to the axis, and labels along the axis are positioned
-relative to the tic marks on the axis.  Multigraph uses a common
+relative to the tic marks on the axis.  The axes themselves are positioned
+relative to the plot area.
+Multigraph uses a common
 collection of attributes and conventions for relative positioning of
 various components; this section describes these conventions and
 attributes.
 </para>
 
 <para>
-Relative positioning can be thought of, in general, as the task of
-placing a small rectangle relative to a large rectangle.  (It may help
-to think in terms of placing the small rectangle "inside" the large
-one, but in some cases the small rectangle will be positioned so that
-it extends beyond the edges of the large one, or lies outside it
-completely.)  The small rectangle might represent a legend or a text
-string, for example, and the large rectangle represents some
-rectangular region of the graph window --- for example, the plot box
+In the most general case, relative positioning can be thought of as the task of
+placing a small rectangle, called the "placed rectangle", relative to a large rectangle,
+called the "base rectangle".  (It may help
+to think in terms of placing the placed rectangle "inside" the base
+one, but in some cases the placed rectangle will be positioned so that
+it extends beyond the edges of the base one, or lies outside it
+completely.)  The placed rectangle might represent a legend or a text
+string, for example, and the base rectangle represents some
+rectangular region of the graph window --- for example, the plot area
 where the data is plotted (see <xref linkend="BordersMarginsPlotArea"/>).
 Each of these rectangles has a width and height in pixels, and
 locations in the rectangle can be specified by giving pixel
@@ -38,8 +41,8 @@ The center of the rectangle has coordinate (0,0).
 </figure>
 
 <para>
-The top part of <xref linkend="figPositioning"/> shows an example in which the large
-rectangle is blue and the small rectangle is green, and
+The top part of <xref linkend="figPositioning"/> shows an example in which the base
+rectangle is blue and the placed rectangle is green, and
 the "relative" coordinates of several key points in each rectangle
 are marked.
 We want to specify a location of the green rectangle relative to the
@@ -55,8 +58,8 @@ vector which is called the "position", and possibly at a given
 <para>
 In <xref linkend="figPositioning"/>, the base point is (1,0) and the anchor
 point is (1,-1).  The base point is specified in the relative coordinates
-of the large rectangle, and the anchor point is in the relative coordinates
-of the small rectangle.  The "position" is a vector that indicates an offset
+of the base rectangle, and the anchor point is in the relative coordinates
+of the placed rectangle.  The "position" is a vector that indicates an offset
 of the anchor point away from the base point in the final positioning; it is specified
 in pixels rather than relative coordinates.  In the figure, the position vector
 looks like it might be something like (-30,-20).  The "angle" is specified in
@@ -80,7 +83,7 @@ and
 <sgmltag>position</sgmltag>
 attributes are specified as a pair of numbers separated by a space,
 without parentheses.  These attributes allow for any arbitrary
-positioning of the small rectangle relative to the large one in a way
+positioning of the placed rectangle relative to the base rectangle in a way
 that makes many common alignment possibilities easy to specify.  For
 example, to center a text string (think of the green rectangle as
 representing a text string) just under the top edge of the blue rectangle,
@@ -150,9 +153,25 @@ that position the title relative to the axis center point, and the
 <para>
 There is one more attribute that is sometimes used in connection with positioning.
 Some &mugl; tags accept the <sgmltag>frame</sgmltag> attribute as a way of identifying
-the base ("large") rectangle.  It typically takes values like "plot" or "padding", to
+the base rectangle.  It typically takes values like "plot" or "padding", to
 indicate that the base rectangle is the plot box or the padding box, respectively; see
-<xref linkend="BordersMarginsPlotArea"/> for a description of these boxes.
+<xref linkend="BordersMarginsPlotArea"/> for a description of these boxes.  In
+most cases, though, the base rectangle is determined by the context and there
+is no need (or allowance) for a <sgmltag>frame</sgmltag> attribute.
+</para>
+
+<para>
+In some cases either the base rectangle or the placed rectangle may 
+actually not be a rectangle, but rather just a line segment.
+For example, when specifying the location of an axis relative to
+the plot area, the "placed rectangle" is the axis.  In cases
+such as this, where the placed rectangle is a line (segment), the 
+<sgmltag>anchor</sgmltag> attribute can take a value that is a
+single number ranging from -1 to 1 that represents a location along the line segment,
+rather than a pair of numbers.  Similarly, in cases where the "base
+rectangle" is a line segment, such as when positioning an axis
+title relative to the axis, the <sgmltag>base</sgmltag> attribute
+can be a single number between -1 and 1.
 </para>
 
 </section>

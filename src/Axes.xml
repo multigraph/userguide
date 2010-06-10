@@ -51,49 +51,94 @@ is "number".
 </listitem>
 </varlistentry>
 
-<varlistentry><term><sgmltag>position</sgmltag></term>
+<varlistentry><term><sgmltag>length</sgmltag></term>
 <listitem>
+
 <para>
-Indicates where this axis should be drawn, as an offset, in pixels,
-from the left edge (for vertical axes) or bottom edge (for
-horizontal axes) of the plot area.  The default is 0.  Note that this
-offset is relative to the plotarea, not the padding box, so the default
-axis positions are long the left and bottom edges of the plotarea.  Negative
-offsets move the axes away from the plotarea and into the padding box.
+The length of the axis.  There are two ways to specify the axis
+length.  The first way is to simply give a number between 0 and 1,
+which represents a fraction of the parallel dimension of the plot area
+(width for horizontal axes, height for vertical axes).  So, for example,
+for a horizontal axis, a value of "1" means that the axis length is
+exactly the width of the plot area, and a value of "0.5" would mean that
+the axis is half as long as the width of the plot area.
+</para>
+
+<para>
+The second way to specify an axis length
+is to give an expression of the form "A+B" or "A-B".  In this case, the
+first number A represents a fraction of the parallel dimension of the plot area,
+as above, and the second number +B or -B represents a number of pixels to add
+or subtract from that length.  So, for example, a length of "1-10" for
+a horizontal axis would mean
+10 pixels less than the width of the plot area.  A value of "0.5+20" for 
+a vertical axis would mean 20 pixels longer than half the height of the plot area.
+If for some reason you want to specify an axis length exactly in terms of
+pixels, use 0 for A; so for example, "0+200" would give an axis that is 200
+pixels long.   (Note that you definitely need to specify the "0+" in this case;
+if you specify a length simply as "200", Multigraph will interpret it, according
+to the first method above, as 200 times the width or height of the plot area,
+which is almost certainly not what you want.)
 </para>
 </listitem>
 </varlistentry>
+
+
+<varlistentry><term><sgmltag>anchor</sgmltag></term></varlistentry>
+<varlistentry><term><sgmltag>base</sgmltag></term></varlistentry>
+<varlistentry><term><sgmltag>position</sgmltag></term>
+<listitem>
+<para>
+These attributes give the location of the axis relative to the plot area, according
+to the conventions described in <xref linkend="Positioning"/>.
+<sgmltag>base</sgmltag> is the location of the base point relative to the plot area;
+the default value for <sgmltag>base</sgmltag> is "-1 -1" --- i.e. the lower left corner of the plot area.
+<sgmltag>anchor</sgmltag> is a single number (not a coordinate pair) between -1 and 1
+indicating the location of the anchor point along the axis.  The default is "-1", which
+represents the left endpoint of a horizontal axis, or the bottom endpoint of a vertical axis.
+<sgmltag>position</sgmltag> is a coordinate pair of pixel offsets, as described in
+<xref linkend="Positioning"/>; its default value is "0 0".
+</para>
+<para>
+Older versions of Multigraph (version 2.2-85 or older) used a slightly different axis positioning
+system, in which the <sgmltag>position</sgmltag> attribute was a single number
+indicating a pixel displacement from the bottom (for horizontal axes) or left (for vertical axes) edge
+of the plot area.  To provide backward compatibility, 
+if <sgmltag>position</sgmltag> is specified as a single number, the current version of Multigraph
+will interpret it to be a displacement in the direction perpendicular to the axis; this behavior,
+together with the default values of the
+<sgmltag>base</sgmltag> and <sgmltag>anchor</sgmltag> attributes (which did not exist in the
+older versions of Multigraph), gives backward compatibility with the older style of axis
+positioning.  In new MUGL files, you can often achive the desired axis positioning using
+only the 
+<sgmltag>length</sgmltag>,
+<sgmltag>base</sgmltag>, and/or 
+<sgmltag>anchor</sgmltag> attributes, and accept the 
+default value of "0 0" for the <sgmltag>position</sgmltag> attribute.
+</para>
+</listitem>
+</varlistentry>
+
 
 <varlistentry><term><sgmltag>positionbase</sgmltag></term>
 <listitem>
 <para>
-Normally the <sgmltag>position</sgmltag> attribute indicates the position
-of an axis with respect to the left (for vertical axes) or bottom (for horizontal axes)
-edge of the plot area. The <sgmltag>positionbase</sgmltag> attribute can be used
-to change this interpretation so that the <sgmltag>position</sgmltag> value
-is relative to the right or top edge instead.  Its value should be either
-'left', 'right', 'bottom', or 'top'.  The default for <sgmltag>positionbase</sgmltag> is
-'left' for vertical axes and 'bottom' for horizontal axes.
+Deprecated.  The current version of Multigraph
+accepts this option to provide backward compatibility with older versions, but
+it should not be used in new MUGL files.  Use the <sgmltag>base</sgmltag>
+attribute instead to switch a vertical axis to be placed relative to the
+right edge of the plot area (base="1 -1", for example), or to 
+switch a horizontal axis to be placed relative to the
+top edge of the plot area (base="-1 1", for example).
 </para>
 </listitem>
 </varlistentry>
 
-<varlistentry><term><sgmltag>pregap</sgmltag></term>
-<listitem>
-<para>
-For horizontal axes: a gap size in pixels between the left edge of the plotarea
-area and the left endpoint of the axis.  For vertical axes: a gap size in pixels
-between the bottom edge of the plotarea and the bottom endpoint of the axis.
-</para>
-</listitem>
-</varlistentry>
-
+<varlistentry><term><sgmltag>pregap</sgmltag></term></varlistentry>
 <varlistentry><term><sgmltag>postgap</sgmltag></term>
 <listitem>
 <para>
-For horizontal axes: a gap size in pixels between the right edge of the plotarea
-and the right endpoint of the axis.  For vertical axes: a gap size in pixels
-between the top edge of the plotarea and the top endpoint of the axis.
+Deprecated.  Do not use these.
 </para>
 </listitem>
 </varlistentry>
@@ -118,15 +163,17 @@ The default value for the "min" attribute is "auto".
 </listitem>
 </varlistentry>
 
-<varlistentry><term><sgmltag>minoffset</sgmltag></term>
+<varlistentry><term><sgmltag>minposition</sgmltag></term>
 <listitem>
 <para>
-A number which determines the point on the axis that will be associated with the
-<sgmltag>min</sgmltag> value. <sgmltag>minoffset</sgmltag> defaults to 0, which means
-that the <sgmltag>min</sgmltag> value is associated with the left or bottom endpoint
-of the axis.  If <sgmltag>minoffset</sgmltag> is not 0, then the <sgmltag>min</sgmltag>
-will be associated with a point on the axis that is that many pixels away from
-the left or bottom endpoint (with positive values going towards the right or top endpoint).
+An expression that indicates the location along the axis corresponding to the minimum
+data value (before any panning or zooming that the user might do).  This is expressed
+in general in the form "A+B" or "A-B", where A is a relative coordinate between -1 and 1,
+and B is pixel offset.  The "+B" or "-B" is optional; if it is not present, B is taken
+to be 0.
+So, for example, minposition="-1" corresponds to the left or bottom
+endpoint of the axis; this is the default.  minposition="-1+5" corresponds to a point
+that is 5 pixels to the right of the left endpoint, or above the bottom endpoint.
 </para>
 </listitem>
 </varlistentry>
@@ -151,15 +198,27 @@ The default value for the "max" attribute is "auto".
 </listitem>
 </varlistentry>
 
-<varlistentry><term><sgmltag>maxoffset</sgmltag></term>
+<varlistentry><term><sgmltag>maxposition</sgmltag></term>
 <listitem>
 <para>
-A number which determines the point on the axis that will be associated with the
-<sgmltag>max</sgmltag> value. <sgmltag>maxoffset</sgmltag> defaults to 0, which means
-that the <sgmltag>max</sgmltag> value is associated with the right or top endpoint
-of the axis.  If <sgmltag>maxoffset</sgmltag> is not 0, then the <sgmltag>max</sgmltag>
-will be associated with a point on the axis that is that many pixels away from
-the right or top endpoint (with positive values going towards the left or bottom endpoint).
+An expression that indicates the location along the axis corresponding to the maximum
+data value (before any panning or zooming that the user might do).  This is expressed
+in general in the form "A+B" or "A-B", where A is a relative coordinate between -1 and 1,
+and B is pixel offset.  The "+B" or "-B" is optional; if it is not present, B is taken
+to be 0.
+So, for example, maxposition="1" corresponds to the right or top
+endpoint of the axis; this is the default.  maxposition="1-5" corresponds to a point
+that is 5 pixels to the left of the right endpoint, or below the top endpoint.
+</para>
+<para>
+Note that is is possible to specify a <sgmltag>minposition</sgmltag>
+and <sgmltag>maxposition</sgmltag> combination in which the min position is to the right
+of, or above, the max position, which will cause the data values along the axis to
+increase in the opposite direction from usual (increasing leftward for horizontal
+axes, or downward for vertical axes).  This is perfectly valid and will work correctly,
+but you should make sure that it is really what you want before deciding to make
+use of this feature, because it is likely to be confusing to users, unless there
+is a good reason to portray your data in this manner.
 </para>
 </listitem>
 </varlistentry>
