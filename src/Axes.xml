@@ -100,7 +100,7 @@ represents the left endpoint of a horizontal axis, or the bottom endpoint of a v
 <xref linkend="Positioning"/>; its default value is "0 0".
 </para>
 <para>
-Older versions of Multigraph (version 2.2-85 or older) used a slightly different axis positioning
+Versions of Multigraph prior to version 2.3 used a slightly different axis positioning
 system, in which the <sgmltag>position</sgmltag> attribute was a single number
 indicating a pixel displacement from the bottom (for horizontal axes) or left (for vertical axes) edge
 of the plot area.  To provide backward compatibility, 
