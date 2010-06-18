@@ -38,7 +38,7 @@ my $version = "unknown";
 if ($URL =~ m|/trunk/|) {
     $version = "trunk";
 } elsif ( my ($v) = ($URL =~ m|/tags/([^/]+)/|) ) {
-    $v =~ s/^multigraph-userguide//i;
+    $v =~ s/^multigraph-userguide-//i;
     $version = $v;
 }
 
