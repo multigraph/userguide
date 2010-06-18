@@ -30,12 +30,15 @@
 <!ENTITY Support                SYSTEM "Support.xml">
 <!ENTITY Credits                SYSTEM "Credits.xml">
 <!ENTITY License                SYSTEM "License.xml">
+
+<!ENTITY Version                SYSTEM "version.xml">
 ]>
 
 <book>
 <bookinfo>
-  <title>Multigraph Users' Guide</title>
-  <author><firstname>Mark</firstname><surname>Phillips</surname></author>
+   <title>Multigraph Users' Guide</title>
+   <subtitle>version &Version;</subtitle>
+   <author><firstname>Mark</firstname><surname>Phillips</surname></author>
 </bookinfo>
 
 &Introduction;

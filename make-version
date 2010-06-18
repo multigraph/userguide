@@ -1,0 +1,13 @@
+#! /usr/bin/perl
+
+###
+### Create a file called "version.xml" in the src directory which contains
+### a string indicating the version number of this copy of the multigraph
+### userguide.  That file is included by the main multigraph.xml source file
+### so that the version number will appear in the document.
+###
+### This script is invoked automatically by build.xml whenever the userguide
+### is compiled.
+###
+
+system("./version -c > src/version.xml");
