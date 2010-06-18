@@ -26,7 +26,7 @@
 	</taskdef>
 
 	<!-- Creates directories for DocBook output -->
-	<target name="prepare" depends="license" description="Creates directories for DocBook output">
+	<target name="prepare" depends="license,version" description="Creates directories for DocBook output">
 		<echo message="Creating html directory" />
 		<mkdir dir="html" />
 	</target>
@@ -34,6 +34,11 @@
 	<target name="license" description="Creates License.xml">
 		<echo message="Creating License.xml" />
 		<exec executable="./make-license"/>
+	</target>
+
+	<target name="version" description="Creates version.xml">
+		<echo message="Creating version.xml" />
+		<exec executable="./make-version"/>
 	</target>
 	
 	<!-- Copy over static content into output area for HTML output -->
@@ -86,6 +91,7 @@
 			  includes="multigraph.xml"
 			  style="xsl/custom-chunk.xsl">
 			<param name="base.dir" expression="${basedir}/html/" /> <!-- This parameter must be passed to XSL to set proper output directory -->
+			<param name="version" expression="THE_VERSION" />
 		</xslt>
 	</target>
 			

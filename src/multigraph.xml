@@ -34,11 +34,11 @@
 <!ENTITY Version                SYSTEM "version.xml">
 ]>
 
-<book xmlns="http://docbook.org/ns/docbook"
-      xmlns:xi="http://www.w3.org/2001/XInclude">
+<book>
 <bookinfo>
-   <title>Multigraph Users' Guide, version &Version;</title>
-  <author><firstname>Mark</firstname><surname>Phillips</surname></author>
+   <title>Multigraph Users' Guide</title>
+   <subtitle>version &Version;</subtitle>
+   <author><firstname>Mark</firstname><surname>Phillips</surname></author>
 </bookinfo>
 
 &Introduction;
