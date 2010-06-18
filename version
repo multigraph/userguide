@@ -29,7 +29,7 @@ sentence.
 
 # Subversion will automatically replace the following string with the
 # repository URL corresponding to this file (using keyword expansion):
-my $URL = '$URL: https://multigraph.svn.sourceforge.net/svnroot/multigraph/userguide/trunk/version $';
+my $URL = '$URL$';
 
 my $concise = ($ARGV[0] eq "-c");
 
