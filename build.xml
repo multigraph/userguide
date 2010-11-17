@@ -63,12 +63,23 @@
 	<!-- Remove files and directories created during the build process -->
 	<target name="clean" description="Remove files and directories created during the build process">
 		<echo message="Removing build files" />
+		<delete dir="build" />
 		<delete dir="html" />
 		<delete dir="pdf" />
 		<delete dir="tmp" />
 		<delete file="xsl/custom-titlepage.xsl" />
 	</target>
 	
+
+	<!-- Transform DocBook into single xhtml file -->
+	<target name="compile-xhtml" depends="prepare-html" description="Transform DocBook into XHTML">
+		<echo message="Transforming DocBook into XHTML" />
+		<xslt classpathref="fop.classpath"
+		      basedir="src"
+		      destdir="build/xhtml"
+		      includes="multigraph.xml"
+		      style="xsl/custom-xhtml.xsl" />
+	</target>
 
 	<!-- Transform DocBook into single html file -->
 <!--
@@ -133,6 +144,7 @@
 	<!-- Compile all output formats -->
 	<target name="compile" description="Compile all output formats">
 		<echo message="Compiling All" />
+		<antcall target="compile-xhtml" />
 		<antcall target="compile-html-chunk" />
 <!--
 		<antcall target="compile-html-single" />

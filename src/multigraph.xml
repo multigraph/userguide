@@ -21,6 +21,7 @@
   <!ENTITY Legends              SYSTEM "Legends.xml">
   <!ENTITY Grids                SYSTEM "Grids.xml">
   <!ENTITY ConstantLines        SYSTEM "ConstantLines.xml">
+  <!ENTITY Backgrounds          SYSTEM "Backgrounds.xml">
 <!-- -->
 <!ENTITY Source                 SYSTEM "Source.xml">
 <!ENTITY Renderers              SYSTEM "Renderers.xml">
@@ -70,6 +71,7 @@ This section describes how to control these aspects of a graph.
     &Legends;
     &Grids;
     &ConstantLines;
+    &Backgrounds;
   </section>
 </chapter> 
 &Source;

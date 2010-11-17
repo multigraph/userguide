@@ -1,0 +1,85 @@
+<section id="Grids">
+<title>Background Color or Image</title>
+
+<para>
+By default, Multigraph draws a solid white background behind every graph.
+You can specify an alternate background color, and or an image to be used
+in the background of a graph, via the <sgmltag>background</sgmltag> tag.
+The <sgmltag>background</sgmltag> tag, if it is present at all, should appear
+at the top level of the &Mugl; file, inside the <sgmltag>&mugl;</sgmltag> tag.
+It accepts a single optional attribute:
+</para>
+
+<variablelist>
+
+<varlistentry><term><sgmltag>color</sgmltag></term>
+<listitem>
+<para>
+The color to use for the graph background.  The default is white
+("0xffffff").
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para>
+The
+<sgmltag>img</sgmltag> subtag, which may optionally appear inside the
+<sgmltag>background</sgmltag> tag, can be used to specify an image to
+be drawn in the background.  It accepts the following attributes:
+</para>
+
+<variablelist>
+
+<varlistentry><term><sgmltag>src</sgmltag></term>
+<listitem>
+<para>
+The URL of the image to be used.  This URL may be either relative (to the location of the Multigraph SWF file), or
+absolute.  If it is on a different server from the Multigraph SWF file, the normal constraints of Flash security
+apply (i.e. access must be allowed by a crossdomain file on the server containing the image).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>anchor</sgmltag></term></varlistentry>
+<varlistentry><term><sgmltag>base</sgmltag></term></varlistentry>
+<varlistentry><term><sgmltag>position</sgmltag></term>
+<listitem>
+<para>
+These attributes specify where the background image should be drawn in the graph, according
+to the conventions described in <xref linkend="Positioning"/>.
+<sgmltag>base</sgmltag> is the location of the base point relative to
+either the padding box or the plot area (the default is the padding box; see
+the 
+<sgmltag>frame</sgmltag> attribute below); 
+the default value for <sgmltag>base</sgmltag> is "-1 -1" --- i.e. the upper left corner.
+The default for <sgmltag>anchor</sgmltag> is also "-1 -1", which means that the upper left
+corner of the image is anchored to the base point.
+<sgmltag>position</sgmltag> is a coordinate pair of pixel offsets, as described in
+<xref linkend="Positioning"/>; its default value is "0 0".
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>frame</sgmltag></term>
+<listitem>
+<para>
+The <sgmltag>frame</sgmltag> attribute determines whether the background image
+is positioned relative to the plot area or the padding box (described in <xref linkend="BordersMarginsPlotArea"/>).
+More precisely, it determines the coordinate system of the <sgmltag>base</sgmltag> point, 
+described above.
+The default value is "padding", which means that the background image will be positioned relative
+to the padding area (the entire part of the graph that is inside the border).
+If you want to position the background image relative to just the plot area, however,
+you can specify "plot" for the <sgmltag>frame</sgmltag>
+attribute, in which case the base point will refer to the plot area.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+
+</section>

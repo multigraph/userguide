@@ -2,9 +2,254 @@
 <title>Legends</title>
 
 <para>
-The <sgmltag>legend</sgmltag> element allows you to control the graph's legend.
-More documentation for this
-will be written soon.
+When a graph has more than one plot, Multigraph automatically adds a legend
+in the upper right corner.  The <sgmltag>legend</sgmltag> tag allows you
+to control the legend's appearance.  The <sgmltag>legend</sgmltag> tag appears at the top
+level inside the <sgmltag>mugl</sgmltag> tag, and accepts the followng attributes:
 </para>
+
+<variablelist>
+
+<varlistentry><term><sgmltag>visible</sgmltag></term>
+<listitem>
+<para>
+This attribute determines whether the legend is present or not; a value of "true" means that the legend should appear,
+and "false" means that it should not.  The default is for the legend to appear if the graph contains more than one
+plot.  You can use this attribute to disable the legend in graphs containing more than one plot, or to enable it
+in graphs containing only one plot.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>anchor</sgmltag></term></varlistentry>
+<varlistentry><term><sgmltag>base</sgmltag></term></varlistentry>
+<varlistentry><term><sgmltag>position</sgmltag></term>
+<listitem>
+<para>
+These attributes give the location of the legend relative to the plot area, according
+to the conventions described in <xref linkend="Positioning"/>.  If you think of the
+legend as being bounded by an imaginary rectangular box, these attributes determine the
+location of that box.
+<sgmltag>base</sgmltag> is the location of the base point relative to the plot area;
+the default value for <sgmltag>base</sgmltag> is "1 1" --- i.e. the upper right corner of the plot area.
+The default for <sgmltag>anchor</sgmltag> is also "1 1", which means that the upper right
+corner of the legend is anchored to the base point.
+<sgmltag>position</sgmltag> is a coordinate pair of pixel offsets, as described in
+<xref linkend="Positioning"/>; its default value is "0 0".
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>frame</sgmltag></term>
+<listitem>
+<para>
+The <sgmltag>frame</sgmltag> attribute determines whether the legend is positioned
+relative to the plot area or the padding box (described in <xref linkend="BordersMarginsPlotArea"/>).
+More precisely, it determines the coordinate system of the <sgmltag>base</sgmltag> point, 
+described above.
+The default value is "plot", which means that the legend will be positioned relative
+to the plot area.  This is usually what you want, since the plot area is where the data
+is plotted.  If you have a graph that has large margins, however, for example to allow
+for multiple vertical axes, you can specify "padding" for the <sgmltag>frame</sgmltag>
+attribute, in which case the legend will be positioned relative
+to the padding box (which is the entire window minus any border and padding amount).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>rows</sgmltag></term></varlistentry>
+<varlistentry><term><sgmltag>columns</sgmltag></term>
+<listitem>
+<para>
+The legend contains an entry for each plot, layed out in a grid.
+The <sgmltag>rows</sgmltag> and <sgmltag>columns</sgmltag> attributes
+determine the number of rows and columns in that grid.  If you specify
+one of these values and not the other, the other will be determined by
+the number of entries in the legend.  The default is <sgmltag>columns="1"</sgmltag>
+and <sgmltag>rows</sgmltag> unspecified, which means that the legend
+will be layed out in a single vertical column, with one row per entry.  If you
+want a single horizontal legend layout instead, specify 
+<sgmltag>rows="1"</sgmltag> and leave <sgmltag>columns</sgmltag> unspecified.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>border</sgmltag></term>
+<listitem>
+<para>
+The thickness of the border drawn around the legend; the default is "1".  Use "0" to turn off
+the border.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>bordercolor</sgmltag></term>
+<listitem>
+<para>
+The color of the border; the default is "0x000000", which is black.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>color</sgmltag></term>
+<listitem>
+<para>
+The color used to fill the background of the legend; the default is "0xFFFFFF", or white.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>opacity</sgmltag></term>
+<listitem>
+<para>
+The opacity value for the legend, in the range 0.0 to 1.0.  This is relevant because depending on where the legend is, it may
+obscure some parts of the plot data.  
+The default is 1.0, which is completely opaque, which means that
+any parts of the plot data that appear behind the legend will not be visible at all.
+any
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>cornerradius</sgmltag></term>
+<listitem>
+<para>
+Determines whether the corners of the legend box, if it is drawn, appear rounded.  
+If <sgmltag>cornerradius</sgmltag> is 0, which is the default, the corners are drawn square.
+If <sgmltag>cornerradius</sgmltag> > 0, then the corners are rounded off
+using circles whose radius is <sgmltag>cornerradius</sgmltag> pixels.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>padding</sgmltag></term>
+<listitem>
+<para>
+An amount of padding, in pixels, to leave between the edges of the legend box and the
+entries inside it.  The default is 0.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+
+<para>
+The <sgmltag>legend</sgmltag> tag can optionally contain an
+<sgmltag>icon</sgmltag> subtag, which affects the appearance of the individual plot icons
+in the legend.  The <sgmltag>icon</sgmltag> subtag takes the following attributes:
+</para>
+
+<variablelist>
+
+<varlistentry><term><sgmltag>width</sgmltag></term></varlistentry>
+<varlistentry><term><sgmltag>height</sgmltag></term>
+<listitem>
+<para>
+The width and height, in pixels, of the icons.  The defaults are 
+<sgmltag>width="40"</sgmltag> and <sgmltag>height="30"</sgmltag>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>border</sgmltag></term>
+<listitem>
+<para>
+The thickness of a border drawn around the icons; the default is "1".  Use "0" to turn off
+the icon borders.
+</para>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+<para>
+In addition to the <sgmltag>legend</sgmltag> tag at the top level
+of the &mugl; file, which controls the overall properties of the legend,
+each plot can contain its own <sgmltag>legend</sgmltag> inside its
+<sgmltag>plot</sgmltag> section for controlling how that plot's entry
+in the legend appears.  In this context, the <sgmltag>legend</sgmltag>
+tag takes the following attributes:
+</para>
+
+<variablelist>
+
+<varlistentry><term><sgmltag>visible</sgmltag></term>
+<listitem>
+<para>
+Determines whether the plot is listed in the legend at all.   The default
+behavior is for all plots to have an entry in the legend if the legend is present at
+all.  To omit a particular plot from the legend, specify
+<sgmltag>visible="false"</sgmltag> in that plot's <sgmltag>legend</sgmltag> tag.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><sgmltag>label</sgmltag></term>
+<listitem>
+<para>
+The text to be used for the plot's entry in the legend.  The default is to use the
+id of the (first) variable assigned to the plot's vertical axis.
+</para>
+</listitem>
+</varlistentry>
+
+
+</variablelist>
+
+
+<para>
+The individual plot entries in the legend are layed out in the order in which
+the corresponding
+<sgmltag>plot</sgmltag> sections appear in the &mugl; file.  To change the order
+of the entries in the legend, change the order of the <sgmltag>plot</sgmltag>
+sections.
+</para>
+
+<para>
+Below is an example &mugl; snippet with 4 plots that specifies a legend to be layed out
+in a single row, centered at the top of the plot area, with no border drawn around
+either the legend itself or the individual plot icons.  One of the plots is omitted
+from the legend, so the legend will contain 3 columns.
+</para>
+
+
+<para>
+<example id="LegendExample" width="40">
+<title>Example Legend Specification</title>
+<programlisting>
+<![CDATA[
+<?xml version="1.0"?>
+<mugl>
+  <legend rows="1" base="0 1" anchor="0 1" border="0">
+    <icon border="0"/>
+  </legend>
+  ...
+  <plot>
+    <legend label="Temperature"/>
+    ...
+  </plot>
+  <plot>
+    <legend label="Precipitation"/>
+    ...
+  </plot>
+  <plot>
+    <legend label="Pressure"/>
+    ...
+  </plot>
+  <plot>
+    <legend visible="false"/>
+    ...
+  </plot>
+  ...
+</mugl>
+]]>
+</programlisting>
+</example>
+</para>
+
+
+
 
 </section>
