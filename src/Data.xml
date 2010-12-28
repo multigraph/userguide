@@ -127,6 +127,58 @@ the REST service URL should not include the "http://" prefix or the server name.
 
 </variablelist>
 
+<section id="DataValueFormats">
+<title>Data Value Formats</title>
+
+<para>
+Multigraph recognizes two types of data values: numbers and datetimes.
+</para>
+
+<para>
+Numbers may be specified in either integer or decimal format.
+</para>
+
+<para>
+The "datetime" type is a combination of a date and time of day.  In general,
+a datetime value may be specified in the 17-character format YYYYMMDDHHmmssqqq,
+in which the letters have the following meanings:
+</para>
+
+<para>
+<table border="1" cellpadding="2" cellspacing="1">
+<tr><td>Component</td><td>Meaning</td></tr>
+<tr><td>YYYY</td><td>4-digit year</td></tr>
+<tr><td>MM</td><td>2-digit month (01--12)</td></tr>
+<tr><td>DD</td><td>2-digit day of month (01--31)</td></tr>
+<tr><td>HH</td><td>2-digit hour of day (00--23)</td></tr>
+<tr><td>mm</td><td>2-digit minutes (00--59)</td></tr>
+<tr><td>ss</td><td>2-digit seconds (00--59), or decimal seconds with millisecond precision</td></tr>
+<tr><td>qqq</td><td>3-digit milliseconds (000--999; should only be present if ss does not contain a decimal)</td></tr>
+</table>
+</para>
+
+<para>
+Any number of these components may be omitted from the right-hand end of the
+string (except the year YYYY, which is always required), in which case the missing
+components are assumed to be zero (except MM or DD, which default to 01).  Also,
+any non-number characters, such as punctuation or spaces, may be inserted
+anywhere in the datetime string to make it easier for humans to read; Multigraph
+simply ignores any non-numeric characters in the string (with the exception of
+correctly interpreting the optional decimal symbol in the ss value).
+The following are all examples of valid datetime strings:
+</para>
+
+<simplelist type='vert' columns='1'>
+<member>20101030</member>
+<member>2010-10-30</member>
+<member>201010301100</member>
+<member>2010-10-30 11:00</member>
+<member>20101030110002234</member>
+<member>2010-10-30 11:00:02.234</member>
+</simplelist>
+
+</section>
+
 <section id="MissingData">
 <title>Missing Data</title>
 

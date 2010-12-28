@@ -333,6 +333,9 @@ of the following special format characters, each of which should be preceeded by
 <tr><td>p</td><td>AM or PM</td></tr>
 <tr><td>p</td><td>am or pm</td></tr>
 <tr><td>s</td><td>seconds</td></tr>
+<tr><td>v</td><td>deciseconds (10ths of a second)</td></tr>
+<tr><td>V</td><td>centiseconds (100ths of a second)</td></tr>
+<tr><td>q</td><td>milliseconds (1000ths of a second)</td></tr>
 <tr><td>W</td><td>weekday name, spelled out</td></tr>
 <tr><td>w</td><td>weekday name, 3-letter abbreviation</td></tr>
 <tr><td>L</td><td>newline</td></tr>
